@@ -11,6 +11,7 @@ interface TagsMenuProps {
 export default function TagsMenu({tags}: TagsMenuProps) {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
+    const close = () => setIsOpen(false);
 
     return (
         <div className={css.menuContainer}>
@@ -21,7 +22,7 @@ export default function TagsMenu({tags}: TagsMenuProps) {
                 <ul className={css.menuList}>
                     {tags.map((tag, index) => (
                         <li className={css.menuItem} key={index}>
-                            <Link href={`/notes/filter/${tag === 'All notes' ? 'all' : tag}`} className={css.menuLink}>
+                            <Link href={`/notes/filter/${tag === 'All notes' ? 'All' : tag}`} className={css.menuLink} onClick={close}>
                                 {tag}
                             </Link>
                         </li>

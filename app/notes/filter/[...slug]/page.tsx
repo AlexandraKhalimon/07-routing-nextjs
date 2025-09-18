@@ -9,7 +9,7 @@ interface NotesParams {
 
 export default async function NotesByTag({ params }: NotesParams) {
     const { slug } = await params;
-    const tag = slug[0] === 'all' ? undefined : slug[0];
+    const tag = slug[0] === 'All' ? undefined : slug[0];
 
     const queryClient = new QueryClient();
 
