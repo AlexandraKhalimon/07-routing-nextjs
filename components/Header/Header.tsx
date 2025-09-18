@@ -1,8 +1,21 @@
 import css from './Header.module.css';
 import Link from 'next/link';
+import TagsMenu from '@/components/TagsMenu/TagsMenu';
+import { fetchNotes } from '@/lib/api';
 
 
-export default function Header() {
+export default async function Header() {
+    
+    const notesResponse = await fetchNotes({
+        search: '',
+        page: 1,
+        perPage: 12,
+        tag: undefined,
+    });
+    const allTags = notesResponse.notes.map((note) => note.tag);
+    const noteTags = allTags.filter((tag, index, allTags) => allTags.indexOf(tag) === index);
+    const tags = ['All notes', ... noteTags];
+    
     return (
         <header className={css.header}>
             <Link href="/" aria-label="Home">
@@ -14,7 +27,7 @@ export default function Header() {
                         <Link href="/">Home</Link>
                     </li>
                     <li>
-                        <Link href="/notes">Notes</Link>
+                        <TagsMenu tags={tags} />
                     </li>
                 </ul>
             </nav>
